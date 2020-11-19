@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const Scheema = mongoose.Schema;
 const crypto = require("crypto");
 const { resolve } = require("path");
+const JWT = require("../middleware/jwt");
 
 const UserSchema = new Scheema({
   email: { type: String, unique: true, required: true },
@@ -46,7 +47,11 @@ exports.login = function (userReq) {
         reject({ message: "User not found" });
       } else {
         if (user.hashed_password === hashPW(userReq.password.toString())) {
-          resolve({ user });
+          const token = JWT.getToken({
+            email: user.email,
+            _id: user._id,
+          });
+          resolve({ user, token });
         } else {
           reject({ message: "Wrong password" });
         }
@@ -54,3 +59,29 @@ exports.login = function (userReq) {
     });
   });
 };
+
+exports.getAllUsers = function () {
+  return new Promise((resolve, reject) => {
+    user.find().exec(function (err, users) {
+      if (err) {
+        reject({ err });
+      } else {
+        resolve(users);
+      }
+    });
+  });
+};
+
+exports.getUserById = function (id) {
+  return new Promise((resolve, reject) => {
+    user.findOne({ _id: id }).exec(function (err, user) {
+      if (err) {
+        reject({ err });
+      } else {
+        resolve(user);
+      }
+    });
+  });
+};
+
+exports.User = user;

@@ -1,0 +1,38 @@
+<h1>{{title}}</h1>
+<h4>Add taks for {{selectedUser.firstName}} {{selectedUser.lastName}}</h4>
+<form method="get" action="/users/tasks/{{selectedUser._id}}">
+    <input type="hidden" name="userID" value="{{selectedUser._id}}" />
+    <input type="text" name="search" />
+    <button type="submit">Search</button>
+</form>
+
+<hr />
+<form method="post" action="/users/addTask">
+    <input type="hidden" name="userID" value="{{selectedUser._id}}" />
+    <input type="text" name="text" class="form-control" />
+    <button type="submit" class="btn btn-primary">Add task</button>
+</form>
+
+<hr />
+
+<table>
+    {{#each allTasks}}
+    <tr>
+        <td>
+            <form method="post" action="/users/editTask">
+                <input type="hidden" name="userID" value="{{../selectedUser._id}}" />
+                <input type="text" readonly name="_id" value="{{this._id}}" />
+                <input type="text" name="text" value="{{this.text}}" />
+                <button type="submit">Edit</button>
+            </form>
+        </td>
+        <td>
+            <form method="post" action="/users/deleteTask">
+                <input type="hidden" name="userID" value="{{../selectedUser._id}}" />
+                <input type="hidden" name="_id" value="{{this._id}}" />
+                <button type="submit">Delete</button>
+            </form>
+        </td>
+    </tr>
+    {{/each}}
+</table>

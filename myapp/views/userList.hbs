@@ -1,0 +1,27 @@
+<h1>{{title}}</h1>
+<h3>Welcome {{loggedUser.firstName}} {{loggedUser.lastName}}</h3>
+<table class="table">
+    <tr>
+        <td>Name</td>
+        <td>Go to tasks</td>
+        <td>Go to Profile</td>
+    </tr>
+    {{#each allUsers}}
+    <tr>
+        <td>
+            <img src="/images/{{this.id}}.png" width="40" />
+            {{this.firstName}} {{this.lastName}}
+        </td>
+        <td>
+            <a href="/users/tasks/{{this.id}}">
+                Go to tasks
+            </a>
+        </td>
+        <td>
+            <a href="/users/profile/{{this.id}}">
+                Go to profile
+            </a>
+        </td>
+    </tr>
+    {{/each}}
+</table>

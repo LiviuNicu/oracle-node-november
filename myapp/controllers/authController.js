@@ -4,7 +4,11 @@ exports.login = function (req, res) {
   userModel
     .login(req.body)
     .then((response) => {
-      res.redirect("/user/" + response.user._id);
+      const token = response.token;
+      res.cookie("x-auth", token, {
+        expires: new Date(Date.now + 8 * 3600000),
+      });
+      res.redirect("/users/" + response.user._id);
     })
     .catch((err) => {
       res.render("login", { title: "Login", error: err.message });
