@@ -1,0 +1,21 @@
+<h1>Register</h1>
+
+<div class="form-grop">
+  <label>First Name</label>
+  <input class="form-control" [(ngModel)]="user.firstName" />
+</div>
+
+<div class="form-grop">
+  <label>Last Name</label>
+  <input class="form-control" [(ngModel)]="user.lastName" />
+</div>
+
+<div class="form-grop">
+  <label>Email</label>
+  <input class="form-control" [(ngModel)]="user.email" />
+</div>
+<div class="form-grop">
+  <label>password</label>
+  <input type="password" class="form-control" [(ngModel)]="user.password" />
+</div>
+<button class="btn btn-primary" (click)="doRegister()">Register</button>

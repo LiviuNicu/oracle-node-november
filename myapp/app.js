@@ -8,8 +8,11 @@ const fileUpload = require("express-fileupload");
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 var authRouter = require("./routes/auth");
+var apiRouter = require("./routes/api");
 
 const mongoose = require("mongoose");
+const cors = require("cors");
+
 mongoose.connect(
   "mongodb+srv://demo:demo@cluster0.nvhvm.mongodb.net/demo?retryWrites=true&w=majority",
   { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true }
@@ -26,11 +29,24 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(fileUpload());
+const corsOptions = {
+  origin: "*",
+  allowedHeaders: [
+    "Content-Type",
+    "Authorization",
+    "Content-Length",
+    "X-Requested-With",
+    "Accept",
+  ],
+  mehods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  optionSuccessStatus: 200, // some lagecy browsers (IE11, smartTVs) 204
+};
+app.use(cors(corsOptions));
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/auth", authRouter);
-
+app.use("/api", apiRouter);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));

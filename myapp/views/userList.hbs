@@ -9,7 +9,10 @@
     {{#each allUsers}}
     <tr>
         <td>
+            {{#if this.hasProfilePicture}}
             <img src="/images/{{this.id}}.png" width="40" />
+            {{/if}}
+
             {{this.firstName}} {{this.lastName}}
         </td>
         <td>

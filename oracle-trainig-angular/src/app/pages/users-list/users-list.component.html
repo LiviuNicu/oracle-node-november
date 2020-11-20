@@ -1,0 +1,16 @@
+<h1>User list</h1>
+
+<table class="table">
+  <tr>
+    <td>Name</td>
+    <td></td>
+  </tr>
+  <tr *ngFor="let user of users">
+    <td>{{ user.firstName }} {{ user.lastName }}</td>
+    <td>
+      <button class="btn btn-primary" (click)="goToTasksPage(user._id)">
+        Go to tasks
+      </button>
+    </td>
+  </tr>
+</table>

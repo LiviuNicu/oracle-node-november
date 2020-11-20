@@ -1,0 +1,20 @@
+<h1>user tasks</h1>
+<input placeholder="Search" [(ngModel)]="search" (ngModelChange)="doSearch()" />
+<table class="table">
+  <tr>
+    <td>Task</td>
+    <td>update</td>
+    <td>delete</td>
+  </tr>
+  <tr *ngFor="let task of tasks">
+    <td>
+      <input [(ngModel)]="task.text" />
+    </td>
+    <td>
+      <button class="btn btn-primary" (click)="update(task)">Update</button>
+    </td>
+    <td>
+      <button class="btn btn-danger" (click)="remove(task)">Delete</button>
+    </td>
+  </tr>
+</table>
